@@ -1,13 +1,169 @@
 ﻿<mah:MetroWindow x:Class="Mock.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:local="clr-namespace:Mock"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:model="clr-namespace:Mock.Model"
+                 xmlns:converters="clr-namespace:Mock.Converters"
+                 xmlns:viewmodels="clr-namespace:Mock.ViewModels"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:local="clr-namespace:Mock"
+                 mc:Ignorable="d"
+                 Title="MainWindow" Height="450" Width="800">
+
+
+    <Window.DataContext>
+        <viewmodels:MainVM />
+    </Window.DataContext>
+
+    <mah:MetroWindow.Resources>
+        <CollectionViewSource x:Key="My.Collections.Images" Source="{Binding Images}" />
+
+        <model:ContentTemplateSelector x:Key="ContentTemplateSelector">
+            <model:ContentTemplateSelector.ImageTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Border Height="50"
+                                Padding="5"
+                                Background="{DynamicResource MahApps.HamburgerMenu.Pane.Background}">
+                            <TextBlock Text="{Binding Converter={converters:FilepathToFilenameConverter}}"
+                                       VerticalAlignment="Center"
+                                       FontSize="25"
+                                       Foreground="{DynamicResource MahApps.HamburgerMenu.Pane.Foreground}" />
+                        </Border>
+
+                        <Image Grid.Row="1" Source="{Binding IsAsync=True}" />
+                    </Grid>
+                </DataTemplate>
+            </model:ContentTemplateSelector.ImageTemplate>
+            <model:ContentTemplateSelector.HamburgerMenuItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Tag}" />
+                </DataTemplate>
+            </model:ContentTemplateSelector.HamburgerMenuItemTemplate>
+        </model:ContentTemplateSelector>
+
+
+        <model:ContentTemplateSelector x:Key="MenuItemTemplateSelector">
+            <model:ContentTemplateSelector.HamburgerMenuItemTemplate>
+                <DataTemplate>
+                    <Grid Height="48"
+                          Background="Transparent"
+                          ToolTip="{Binding Label}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="{Binding Icon}"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Focusable="False"
+                                        IsTabStop="False" />
+                        <TextBlock Text="{Binding Label}"
+                                   Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="16" />
+                    </Grid>
+                </DataTemplate>
+            </model:ContentTemplateSelector.HamburgerMenuItemTemplate>
+            <model:ContentTemplateSelector.ImageTemplate>
+                <DataTemplate>
+                    <Grid Height="48"
+                          Background="Transparent"
+                          ToolTip="{Binding}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Margin="3"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Focusable="False"
+                               Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="48"
+                                             RenderOptions.BitmapScalingMode="LowQuality"
+                                             UriSource="{Binding IsAsync=True}" />
+                            </Image.Source>
+                        </Image>
+                        <TextBlock Text="{Binding Converter={converters:FilepathToFilenameConverter}}"
+                                   Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="16" />
+                    </Grid>
+                </DataTemplate>
+            </model:ContentTemplateSelector.ImageTemplate>
+        </model:ContentTemplateSelector>
+
+
+    </mah:MetroWindow.Resources>
+
     <Grid>
+
+        <mah:HamburgerMenu x:Name="myHamburgerMenu" Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem}"
+                       CanResizeOpenPane="True"
+                       ContentTemplateSelector="{StaticResource ContentTemplateSelector}"
+                       ItemTemplate="{x:Null}"
+                       ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
+                       OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
+                       SelectedIndex="0"
+                       VirtualizingPanel.IsVirtualizing="True">
+            <mah:HamburgerMenu.ItemsSource>
+                <CompositeCollection>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Home">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Border Height="50"
+                                        Padding="5"
+                                        Background="{DynamicResource MahApps.HamburgerMenu.Pane.Background}">
+                                    <TextBlock Text="Home"
+                                               VerticalAlignment="Center"
+                                               FontSize="25"
+                                               Foreground="{DynamicResource MahApps.HamburgerMenu.Pane.Foreground}" />
+                                </Border>
+
+                                <ListView Grid.Row="1"
+                                          AllowDrop="True"
+                                          ItemsSource="{Binding Images}"/>
+                            </Grid>
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+
+                    <mah:HamburgerMenuSeparatorItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" />
+                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 1" />
+                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 2" />
+                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 3" />
+                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 4" />
+
+                    <CollectionContainer Collection="{Binding Source={StaticResource My.Collections.Images}}" />
+
+                </CompositeCollection>
+            </mah:HamburgerMenu.ItemsSource>
+
+            <mah:HamburgerMenu.OptionsItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuSeparatorItem />
+                    <mah:HamburgerMenuIconItem Command="{Binding AddImagesCommand}"
+                                               Icon="{iconPacks:Material Kind=Plus}"
+                                               Label="Settings" />
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.OptionsItemsSource>
+
+        </mah:HamburgerMenu>
 
     </Grid>
 </mah:MetroWindow>
