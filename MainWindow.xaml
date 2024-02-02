@@ -6,6 +6,7 @@
                  xmlns:model="clr-namespace:Mock.Model"
                  xmlns:converters="clr-namespace:Mock.Converters"
                  xmlns:viewmodels="clr-namespace:Mock.ViewModels"
+                 xmlns:views="clr-namespace:Mock.Views"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:local="clr-namespace:Mock"
@@ -17,7 +18,14 @@
         <viewmodels:MainVM />
     </Window.DataContext>
 
+
     <mah:MetroWindow.Resources>
+
+
+        <DataTemplate DataType="{x:Type viewmodels:SettingsVM}">
+            <views:SettingsControl />
+        </DataTemplate>
+
         <CollectionViewSource x:Key="My.Collections.Images" Source="{Binding Images}" />
 
         <model:ContentTemplateSelector x:Key="ContentTemplateSelector">
@@ -137,9 +145,8 @@
                                                Foreground="{DynamicResource MahApps.HamburgerMenu.Pane.Foreground}" />
                                 </Border>
 
-                                <ListView Grid.Row="1"
-                                          AllowDrop="True"
-                                          ItemsSource="{Binding Images}"/>
+                                <ContentControl Grid.Row="1" 
+                                                Content="{Binding CurrentViewModel}" />
                             </Grid>
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
