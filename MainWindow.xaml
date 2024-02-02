@@ -38,7 +38,8 @@
                                        Foreground="{DynamicResource MahApps.HamburgerMenu.Pane.Foreground}" />
                         </Border>
 
-                        <Image Grid.Row="1" Source="{Binding IsAsync=True}" />
+                        <Image Grid.Row="1" 
+                               Source="{Binding IsAsync=True}" />
                     </Grid>
                 </DataTemplate>
             </model:ContentTemplateSelector.ImageTemplate>

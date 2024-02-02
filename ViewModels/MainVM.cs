@@ -1,6 +1,10 @@
 ﻿namespace Mock.ViewModels
 {
-    public class MainVM
+    public class MainVM : BaseVM
     {
+        public MainVM()
+        {
+
+        }
     }
 }
