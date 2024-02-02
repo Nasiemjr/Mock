@@ -17,7 +17,7 @@ namespace Mock.Converters
 
         protected override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return;
+            throw new NotImplementedException();
         }
     }
 }
