@@ -1,4 +1,7 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using Mock.ViewModels;
+using System;
 
 namespace Mock
 {
@@ -10,6 +13,7 @@ namespace Mock
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = App.Current.Services.GetService<MainVM>();
         }
     }
 }

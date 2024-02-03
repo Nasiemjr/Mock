@@ -2,10 +2,8 @@
 {
     public class MainVM : BaseVM
     {
-        public MainVM()
+        public MainVM(SettingsVM settingsVM)
         {
-            var settingsVM =  new SettingsVM();
-
             CurrentViewModel = settingsVM;
         }
 
