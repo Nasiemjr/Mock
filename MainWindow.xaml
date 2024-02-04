@@ -9,7 +9,7 @@
                  xmlns:views="clr-namespace:Mock.Views"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                 xmlns:local="clr-namespace:Mock"
+                 xmlns:local="clr-namespace:Mock" d:DataContext="{d:DesignInstance Type=viewmodels:MainVM}"
                  mc:Ignorable="d"
                  Title="MainWindow" Height="450" Width="800">
 
@@ -63,12 +63,12 @@
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <ContentControl Content="{Binding Icon}"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Focusable="False"
-                                        IsTabStop="False" />
+                        <iconPacks:PackIconFontAwesome Kind="{Binding Icon}"
+                                                          Grid.Column="0"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          Focusable="False"
+                                                          IsTabStop="False" />
                         <TextBlock Text="{Binding Label}"
                                    Grid.Column="1"
                                    VerticalAlignment="Center"
@@ -118,52 +118,18 @@
                        ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
                        OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
                        SelectedIndex="0"
+                       ItemsSource="{Binding HamburgerItems}"
+                       OptionsItemsSource="{Binding HamburgerOptions}"
                        VirtualizingPanel.IsVirtualizing="True">
-            <mah:HamburgerMenu.ItemsSource>
-                <CompositeCollection>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Home">
-                        <mah:HamburgerMenuIconItem.Tag>
-                            <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
 
-                                <Border Height="50"
-                                        Padding="5"
-                                        Background="{DynamicResource MahApps.HamburgerMenu.Pane.Background}">
-                                    <TextBlock Text="Home"
-                                               VerticalAlignment="Center"
-                                               FontSize="25"
-                                               Foreground="{DynamicResource MahApps.HamburgerMenu.Pane.Foreground}" />
-                                </Border>
-
-                                <ContentControl Grid.Row="1" 
-                                                Content="{Binding CurrentViewModel}" />
-                            </Grid>
-                        </mah:HamburgerMenuIconItem.Tag>
-                    </mah:HamburgerMenuIconItem>
-
-                    <mah:HamburgerMenuSeparatorItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" />
-                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 1" />
-                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 2" />
-                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 3" />
-                    <mah:HamburgerMenuHeaderItem IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mah:MetroWindow}, Path=DataContext.HasImages}" Label="Item 4" />
-
-                    <CollectionContainer Collection="{Binding Source={StaticResource My.Collections.Images}}" />
-
-                </CompositeCollection>
-            </mah:HamburgerMenu.ItemsSource>
-
-            <mah:HamburgerMenu.OptionsItemsSource>
+            <!--<mah:HamburgerMenu.OptionsItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuSeparatorItem />
                     <mah:HamburgerMenuIconItem Command="{Binding AddImagesCommand}"
                                                Icon="{iconPacks:Material Kind=Plus}"
                                                Label="Settings" />
                 </mah:HamburgerMenuItemCollection>
-            </mah:HamburgerMenu.OptionsItemsSource>
+            </mah:HamburgerMenu.OptionsItemsSource>-->
 
         </mah:HamburgerMenu>
 
