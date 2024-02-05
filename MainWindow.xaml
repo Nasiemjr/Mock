@@ -112,7 +112,7 @@
     <Grid>
 
         <mah:HamburgerMenu x:Name="myHamburgerMenu" 
-                           Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem}"
+                           Content="{Binding CurrentViewModel}"
                            CanResizeOpenPane="True"
                            ContentTemplateSelector="{StaticResource ContentTemplateSelector}"
                            ItemTemplate="{x:Null}"
