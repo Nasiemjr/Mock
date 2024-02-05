@@ -39,8 +39,11 @@ namespace Mock
 
             // Viewmodels
             services.AddSingleton<MainVM>();
-            services.AddSingleton<SettingsVM>();
             services.AddSingleton<GamePadVM>();
+            services.AddSingleton<LaptopVM>();
+            services.AddSingleton<DesktopVM>();
+            services.AddSingleton<MobileVM>();
+            services.AddSingleton<SettingsVM>();
 
             return services.BuildServiceProvider();
         }

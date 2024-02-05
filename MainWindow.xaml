@@ -24,6 +24,18 @@
             <views:GamePadControl />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewmodels:LaptopVM}">
+            <views:LaptopControl />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:DesktopVM}">
+            <views:DesktopControl />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:MobileVM}">
+            <views:MobileControl />
+        </DataTemplate>
+
         <CollectionViewSource x:Key="My.Collections.Images" Source="{Binding Images}" />
 
         <model:ContentTemplateSelector x:Key="ContentTemplateSelector">

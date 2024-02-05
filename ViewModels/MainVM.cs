@@ -9,14 +9,23 @@ namespace Mock.ViewModels
 {
     public class MainVM : BaseVM
     {
-        public MainVM(SettingsVM settingsVM, GamePadVM gamePadVM)
+        public MainVM(SettingsVM settingsVM, 
+                      GamePadVM gamePadVM, 
+                      LaptopVM laptopVM, 
+                      DesktopVM desktopVM,
+                      MobileVM mobileVM)
         {
             _gamepadVM = gamePadVM;
             _settingsVM = settingsVM;
+            _laptopVM = laptopVM;
+            _desktopVM = desktopVM;
+            _mobileVM = mobileVM;
 
             CurrentViewModel = settingsVM;
             SetupMenuItems();
             SetupMenuOptions();
+            _desktopVM = desktopVM;
+            _laptopVM = laptopVM;
         }
 
         public void SetupMenuItems()
@@ -36,18 +45,21 @@ namespace Mock.ViewModels
             {
                 Label = "Laptop",
                 Icon = PackIconFontAwesomeKind.LaptopSolid,
+                Command = new RelayCommand(()=> {CurrentViewModel = _laptopVM; }),
             },
 
              new HamburgerMenuIconItem()
             {
                 Label = "Desktop",
                 Icon = PackIconFontAwesomeKind.DesktopSolid,
+                Command = new RelayCommand(()=> {CurrentViewModel = _desktopVM; }),
             },
 
              new HamburgerMenuIconItem()
             {
                 Label = "Mobile",
                 Icon = PackIconFontAwesomeKind.MobileSolid,
+                Command = new RelayCommand(()=> {CurrentViewModel = _mobileVM; }),
             },
         };
         }
@@ -106,6 +118,9 @@ namespace Mock.ViewModels
 
         private BaseVM _currentViewModel;
         private GamePadVM _gamepadVM;
+        private LaptopVM _laptopVM;
+        private DesktopVM _desktopVM;
+        private MobileVM _mobileVM;
         private SettingsVM _settingsVM;
         private int _selectedViewModel = -1;
         private ObservableCollection<HamburgerMenuIconItem> _hamburgerMenuItems = new();
