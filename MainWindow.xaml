@@ -20,6 +20,10 @@
             <views:SettingsControl />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewmodels:GamePadVM}">
+            <views:GamePadControl />
+        </DataTemplate>
+
         <CollectionViewSource x:Key="My.Collections.Images" Source="{Binding Images}" />
 
         <model:ContentTemplateSelector x:Key="ContentTemplateSelector">
@@ -118,9 +122,9 @@
                            ItemTemplate="{x:Null}"
                            ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
                            OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
-                           SelectedIndex="0"
                            ItemsSource="{Binding HamburgerItems}"
                            OptionsItemsSource="{Binding HamburgerOptions}"
+                           SelectedIndex="{Binding SelectedMenuItem}"
                            VirtualizingPanel.IsVirtualizing="True">
 
             <!--  Header  -->

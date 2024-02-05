@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
+using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -7,8 +9,11 @@ namespace Mock.ViewModels
 {
     public class MainVM : BaseVM
     {
-        public MainVM(SettingsVM settingsVM)
+        public MainVM(SettingsVM settingsVM, GamePadVM gamePadVM)
         {
+            _gamepadVM = gamePadVM;
+            _settingsVM = settingsVM;
+
             CurrentViewModel = settingsVM;
             SetupMenuItems();
             SetupMenuOptions();
@@ -24,6 +29,7 @@ namespace Mock.ViewModels
             {
                 Label = "Gamepad",
                 Icon = PackIconFontAwesomeKind.GamepadSolid,
+                Command = new RelayCommand(()=> {CurrentViewModel = _gamepadVM; }),
             },
 
              new HamburgerMenuIconItem()
@@ -56,6 +62,7 @@ namespace Mock.ViewModels
             {
                 Label = "Settings",
                 Icon = PackIconFontAwesomeKind.WrenchSolid,
+                Command = new RelayCommand(()=> {CurrentViewModel = _settingsVM; }),
             },
         };
         }
@@ -87,10 +94,20 @@ namespace Mock.ViewModels
             }
         }
 
-        public HamburgerMenuIconItem SelectedMenuItem { get; set; }
+        public int SelectedMenuItem
+        {
+            get => _selectedViewModel;
+            set
+            {
+                SetProperty(ref _selectedViewModel, value);
+            }
+        }
 
 
         private BaseVM _currentViewModel;
+        private GamePadVM _gamepadVM;
+        private SettingsVM _settingsVM;
+        private int _selectedViewModel = -1;
         private ObservableCollection<HamburgerMenuIconItem> _hamburgerMenuItems = new();
         private ObservableCollection<HamburgerMenuIconItem> _hamburgerMenuOptions = new();
     }
