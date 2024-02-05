@@ -111,16 +111,32 @@
 
     <Grid>
 
-        <mah:HamburgerMenu x:Name="myHamburgerMenu" Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem}"
-                       CanResizeOpenPane="True"
-                       ContentTemplateSelector="{StaticResource ContentTemplateSelector}"
-                       ItemTemplate="{x:Null}"
-                       ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
-                       OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
-                       SelectedIndex="0"
-                       ItemsSource="{Binding HamburgerItems}"
-                       OptionsItemsSource="{Binding HamburgerOptions}"
-                       VirtualizingPanel.IsVirtualizing="True">
+        <mah:HamburgerMenu x:Name="myHamburgerMenu" 
+                           Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem}"
+                           CanResizeOpenPane="True"
+                           ContentTemplateSelector="{StaticResource ContentTemplateSelector}"
+                           ItemTemplate="{x:Null}"
+                           ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
+                           OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
+                           SelectedIndex="0"
+                           ItemsSource="{Binding HamburgerItems}"
+                           OptionsItemsSource="{Binding HamburgerOptions}"
+                           VirtualizingPanel.IsVirtualizing="True">
+
+            <!--  Header  -->
+            <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Text="Menu Items"
+                        Padding="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="DemiBold"
+                        Foreground="White"
+                        TextWrapping="Wrap" />
+                </DataTemplate>
+            </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
 
             <!--<mah:HamburgerMenu.OptionsItemsSource>
                 <mah:HamburgerMenuItemCollection>
