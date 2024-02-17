@@ -18,8 +18,44 @@ namespace Mock
         public App()
         {
             Services = ConfigureServices();
-
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Called during startup of application
+        /// </summary>
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            CurrentMainWindow = new MainWindow();
+            CurrentStartupWindow = new StartupWindow();
+
+            CurrentStartupWindow.Show();
+        }
+
+        /// <summary>
+        /// Called during exit of application
+        /// </summary>
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+        }
+
+        /// <summary>
+        /// Closes the Startup Window
+        /// </summary>
+        public void CloseStartupWindow()
+        {
+            CurrentStartupWindow.Close();
+        }
+
+        /// <summary>
+        /// Opens the Main Window
+        /// </summary>
+        public void OpenMainWindow()
+        {
+            CurrentMainWindow.Show();
         }
 
         /// <summary>
@@ -33,6 +69,16 @@ namespace Mock
         public IServiceProvider Services { get; }
 
         /// <summary>
+        /// Instance of the Startup Window
+        /// </summary>
+        public StartupWindow CurrentStartupWindow { get; set; }
+
+        /// <summary>
+        /// Instance of the Main Window
+        /// </summary>
+        public MainWindow CurrentMainWindow { get; set; }
+
+        /// <summary>
         /// Configures the services for the application.
         /// </summary>
         private static IServiceProvider ConfigureServices()
@@ -40,6 +86,7 @@ namespace Mock
             var services = new ServiceCollection();
 
             // View Models
+            services.AddSingleton<StartupVM>();
             services.AddSingleton<MainVM>();
             services.AddSingleton<GamePadVM>();
             services.AddSingleton<LaptopVM>();
