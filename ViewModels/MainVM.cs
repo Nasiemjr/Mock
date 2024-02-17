@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
 using System.Collections.ObjectModel;
+using System.Resources;
 using System.Windows.Controls;
 
 namespace Mock.ViewModels
@@ -13,13 +14,15 @@ namespace Mock.ViewModels
                       GamePadVM gamePadVM, 
                       LaptopVM laptopVM, 
                       DesktopVM desktopVM,
-                      MobileVM mobileVM)
+                      MobileVM mobileVM,
+                      ResourceManager resourceManager)
         {
             _gamepadVM = gamePadVM;
             _settingsVM = settingsVM;
             _laptopVM = laptopVM;
             _desktopVM = desktopVM;
             _mobileVM = mobileVM;
+            _resourceManager = resourceManager;
 
             CurrentViewModel = settingsVM;
             SetupMenuItems();
@@ -36,28 +39,28 @@ namespace Mock.ViewModels
 
             new HamburgerMenuIconItem()
             {
-                Label = "Gamepad",
+                Label = _resourceManager.GetString("labelGamepad"),
                 Icon = PackIconFontAwesomeKind.GamepadSolid,
                 Command = new RelayCommand(()=> {CurrentViewModel = _gamepadVM; }),
             },
 
              new HamburgerMenuIconItem()
             {
-                Label = "Laptop",
+                Label = _resourceManager.GetString("labelLaptop"),
                 Icon = PackIconFontAwesomeKind.LaptopSolid,
                 Command = new RelayCommand(()=> {CurrentViewModel = _laptopVM; }),
             },
 
              new HamburgerMenuIconItem()
             {
-                Label = "Desktop",
+                Label = _resourceManager.GetString("labelDesktop"),
                 Icon = PackIconFontAwesomeKind.DesktopSolid,
                 Command = new RelayCommand(()=> {CurrentViewModel = _desktopVM; }),
             },
 
              new HamburgerMenuIconItem()
             {
-                Label = "Mobile",
+                Label = _resourceManager.GetString("labelMobile"),
                 Icon = PackIconFontAwesomeKind.MobileSolid,
                 Command = new RelayCommand(()=> {CurrentViewModel = _mobileVM; }),
             },
@@ -122,6 +125,8 @@ namespace Mock.ViewModels
         private DesktopVM _desktopVM;
         private MobileVM _mobileVM;
         private SettingsVM _settingsVM;
+        private ResourceManager _resourceManager;
+
         private int _selectedViewModel = -1;
         private ObservableCollection<HamburgerMenuIconItem> _hamburgerMenuItems = new();
         private ObservableCollection<HamburgerMenuIconItem> _hamburgerMenuOptions = new();

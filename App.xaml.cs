@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Mock.ViewModels;
+using System.Reflection;
+using System.Resources;
 using System.Windows;
 
 namespace Mock
@@ -37,13 +39,17 @@ namespace Mock
         {
             var services = new ServiceCollection();
 
-            // Viewmodels
+            // View Models
             services.AddSingleton<MainVM>();
             services.AddSingleton<GamePadVM>();
             services.AddSingleton<LaptopVM>();
             services.AddSingleton<DesktopVM>();
             services.AddSingleton<MobileVM>();
             services.AddSingleton<SettingsVM>();
+
+            // Resource Manager
+            services.AddSingleton<ResourceManager>(sp => new ResourceManager("Mock.Resources.SystemStrings", Assembly.GetExecutingAssembly()));
+
 
             return services.BuildServiceProvider();
         }
